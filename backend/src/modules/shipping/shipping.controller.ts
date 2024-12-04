@@ -8,7 +8,6 @@ export class ShippingController {
 
   @Post('offers')
   async getOffers(@Body() body: OfferDto) {
-    console.log(body);
     return this.shippingService.calculateOffers(body);
   }
 

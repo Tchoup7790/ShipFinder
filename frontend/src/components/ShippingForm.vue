@@ -77,11 +77,12 @@ const submitForm = () => {
         ></v-select>
 
         <v-text-field
-          label="Poids du colis"
+          label="Poids du colis (g)"
           type="number"
           v-model="weight"
           variant="outlined"
           min="0"
+          max="10000"
         ></v-text-field>
 
         <v-row>

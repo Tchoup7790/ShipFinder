@@ -1,6 +1,7 @@
-import { ValidationPipe } from '@nestjs/common';
+import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { ValidationError } from 'class-validator';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -13,6 +14,11 @@ async function bootstrap() {
         enableImplicitConversion: true,
       },
       stopAtFirstError: true,
+      disableErrorMessages: true,
+      exceptionFactory: (errors: ValidationError[]) => {
+        console.log(errors);
+        throw new BadRequestException({ errors: errors });
+      },
     }),
   );
   app.enableCors({
