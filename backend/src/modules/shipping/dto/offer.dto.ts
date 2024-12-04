@@ -8,6 +8,7 @@ import {
   IsOptional,
 } from 'class-validator';
 import { Countries } from '../utils/countries';
+import { Carriers } from '../utils/carriers';
 
 export class OfferDto {
   @Type(() => Number)
@@ -43,4 +44,9 @@ export class OfferDto {
   @IsString()
   @IsIn(['Express', 'Economique'])
   type?: string;
+
+  @IsOptional()
+  @IsString()
+  @IsIn(Carriers)
+  carrier?: string;
 }

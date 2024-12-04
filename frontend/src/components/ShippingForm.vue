@@ -4,7 +4,7 @@ import { ref } from "vue";
 const emit = defineEmits(["submit"]);
 
 const objectId = ref("default-object-id");
-const carrier = ref("FedEx");
+const carrier = ref();
 const country = ref("France");
 const postalCode = ref("75000");
 const offer = ref();
@@ -15,7 +15,7 @@ const dimensions = ref({
   height: 10,
 });
 
-const carriers = ["FedEx", "UPS", "La Poste", "Colissimo"];
+const carriers = [null, "FedEx", "UPS", "La Poste", "Colissimo"];
 const countries = ["France", "USA", "Canada", "Belgium", "UK"];
 const offers = [null, "Express", "Economique"];
 
@@ -27,6 +27,7 @@ const submitForm = () => {
     height: dimensions.value.height,
     country: country.value,
     type: offer.value,
+    carrier: carrier.value,
   });
 };
 </script>
@@ -37,14 +38,14 @@ const submitForm = () => {
     <v-card-text>
       <v-form>
         <v-text-field
-          aria-placeholder="Entrer la référence ou l'ID de l'objet (facultatif)"
+          label="Entrer la référence ou l'ID de l'objet (facultatif)"
           v-model="objectId"
           variant="outlined"
         ></v-text-field>
 
         <v-select
           :items="carriers"
-          aria-placeholder="Transporteurs"
+          label="Transporteurs"
           v-model="carrier"
           variant="outlined"
         ></v-select>
@@ -53,7 +54,7 @@ const submitForm = () => {
           <v-col cols="6">
             <v-select
               :items="countries"
-              aria-placeholder="Pays"
+              label="Pays"
               v-model="country"
               variant="outlined"
             ></v-select>
@@ -61,7 +62,7 @@ const submitForm = () => {
 
           <v-col cols="6">
             <v-text-field
-              aria-placeholder="Code postal"
+              label="Code postal"
               v-model="postalCode"
               variant="outlined"
             ></v-text-field>
@@ -76,7 +77,7 @@ const submitForm = () => {
         ></v-select>
 
         <v-text-field
-          aria-placeholder="Poids du colis"
+          label="Poids du colis"
           type="number"
           v-model="weight"
           variant="outlined"
@@ -86,7 +87,7 @@ const submitForm = () => {
         <v-row>
           <v-col cols="4">
             <v-text-field
-              aria-placeholder="Longueur (cm)"
+              label="Longueur (cm)"
               type="number"
               v-model="dimensions.length"
               variant="outlined"
@@ -96,7 +97,7 @@ const submitForm = () => {
           </v-col>
           <v-col cols="4">
             <v-text-field
-              aria-placeholder="Largeur (cm)"
+              label="Largeur (cm)"
               type="number"
               v-model="dimensions.width"
               variant="outlined"
@@ -106,7 +107,7 @@ const submitForm = () => {
           </v-col>
           <v-col cols="4">
             <v-text-field
-              aria-placeholder="Hauteur (cm)"
+              label="Hauteur (cm)"
               type="number"
               v-model="dimensions.height"
               variant="outlined"
