@@ -12,6 +12,14 @@ export class ShippingService {
     return { economic, express };
   }
 
+  getCountries() {
+    return ['France', 'Canada', 'USA', 'Belgique', 'Royaume-Uni'];
+  }
+
+  getCarriers() {
+    return ['FedEx', 'UPS', 'Colissimo', 'Chronopost'];
+  }
+
   private calculateEconomic(weight: number) {
     return { type: 'economic', price: weight * 0.5 };
   }

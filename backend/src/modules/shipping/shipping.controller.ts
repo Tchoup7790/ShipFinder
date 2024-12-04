@@ -10,4 +10,14 @@ export class ShippingController {
   getOffers(@Query() query: OfferQueryDto) {
     return this.shippingService.calculateOffers(query);
   }
+
+  @Get('carriers')
+  getCarriers() {
+    return this.shippingService.getCarriers();
+  }
+
+  @Get('countries')
+  getCountries() {
+    return this.shippingService.getCountries();
+  }
 }
