@@ -1,33 +1,15 @@
-import { Controller, Get, Query, Body, Post } from '@nestjs/common';
-import { OfferQueryDto } from './dto/offer-query.dto';
+import { Controller, Get, Body, Post } from '@nestjs/common';
 import { ShippingService } from './shipping.service';
+import { OfferDto } from './dto/offer.dto';
 
 @Controller('shipping')
 export class ShippingController {
   constructor(private readonly shippingService: ShippingService) {}
 
-  @Get('offers')
-  getOffersQuery(@Query() query: OfferQueryDto) {
-    return this.shippingService.calculateOffers(query);
-  }
-
   @Post('offers')
-  async getOffers(@Body() body: any) {
-    console.log('body', body);
-    return {
-      offers: [
-        {
-          carrier: 'UPS',
-          price: 10,
-          deliveryTime: 2,
-        },
-        {
-          carrier: 'FedEx',
-          price: 15,
-          deliveryTime: 3,
-        },
-      ],
-    };
+  async getOffers(@Body() body: OfferDto) {
+    console.log(body);
+    return this.shippingService.calculateOffers(body);
   }
 
   @Get('carriers')

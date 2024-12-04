@@ -4,12 +4,17 @@ defineProps(["results"]);
 
 <template>
   <v-card v-if="results" variant="outlined">
-    <v-card-title>Results</v-card-title>
+    <v-card-title>Résultat(s)</v-card-title>
     <v-expansion-panels>
       <v-expansion-panel
         v-for="offer in results.offers"
         :title="offer.carrier + ' : ' + offer.price + '€'"
-        :text="offer.price + ' jours de delais de livraison'"
+        :text="
+          offer.type +
+          ' :  ' +
+          offer.deliveryTime +
+          ' jours de delais de livraison'
+        "
       >
       </v-expansion-panel>
     </v-expansion-panels>

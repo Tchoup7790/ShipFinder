@@ -7,7 +7,6 @@ const results = ref(null);
 
 const handleFormSubmit = async (formData: any) => {
   try {
-    console.log(formData);
     const response = await fetch("http://localhost:3000/shipping/offers", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

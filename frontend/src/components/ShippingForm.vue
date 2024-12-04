@@ -7,7 +7,7 @@ const objectId = ref("default-object-id");
 const carrier = ref("FedEx");
 const country = ref("France");
 const postalCode = ref("75000");
-const offer = ref("Economic");
+const offer = ref("Economique");
 const weight = ref<number>(0);
 const dimensions = ref({
   length: 10,
@@ -17,19 +17,15 @@ const dimensions = ref({
 
 const carriers = ["FedEx", "UPS", "La Poste", "Colissimo"];
 const countries = ["France", "USA", "Canada", "Belgium", "UK"];
-const offers = ["Express", "Economic"];
+const offers = ["Express", "Economique"];
 
 const submitForm = () => {
   emit("submit", {
-    objectId: objectId.value,
-    carrier: carrier.value,
-    country: country.value,
-    postalCode: postalCode.value,
-    offer: offer.value,
     weight: weight.value,
     length: dimensions.value.length,
     width: dimensions.value.width,
     height: dimensions.value.height,
+    country: country.value,
   });
 };
 </script>
