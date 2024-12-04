@@ -7,7 +7,6 @@ export class ShippingService {
   calculateOffers(query: any) {
     const { weight, length, width, height, country, type } = query;
     const offers = [];
-    const usedCarriers: Set<string> = new Set();
 
     for (let i = 0; i < 8; i++) {
       const offer = this.makeFakeOffer(
@@ -31,36 +30,22 @@ export class ShippingService {
 
     const bestOffers = [];
 
-    if (!type || type === 'Express') {
-      const bestExpress = this.selectBestOfferWithDifferentCarrier(
-        expressOffers,
-        usedCarriers,
-      );
-      if (bestExpress) bestOffers.push(bestExpress);
-    }
-
-    if (!type || type === 'Economique') {
-      const bestEconomic = this.selectBestOfferWithDifferentCarrier(
-        economicOffers,
-        usedCarriers,
-      );
-      if (bestEconomic) bestOffers.push(bestEconomic);
+    if (type) {
+      if (type === 'Express') {
+        bestOffers.push(...expressOffers.slice(0, 2));
+      } else if (type === 'Economique') {
+        bestOffers.push(...economicOffers.slice(0, 2));
+      }
+    } else {
+      if (expressOffers.length > 0) {
+        bestOffers.push(expressOffers[0]);
+      }
+      if (economicOffers.length > 0) {
+        bestOffers.push(economicOffers[0]);
+      }
     }
 
     return { offers: bestOffers };
-  }
-
-  private selectBestOfferWithDifferentCarrier(
-    offers: any[],
-    usedCarriers: Set<string>,
-  ) {
-    for (const offer of offers) {
-      if (!usedCarriers.has(offer.carrier)) {
-        usedCarriers.add(offer.carrier);
-        return offer;
-      }
-    }
-    return null;
   }
 
   getCountries() {

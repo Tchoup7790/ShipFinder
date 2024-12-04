@@ -7,7 +7,7 @@ const objectId = ref("default-object-id");
 const carrier = ref("FedEx");
 const country = ref("France");
 const postalCode = ref("75000");
-const offer = ref("Economique");
+const offer = ref();
 const weight = ref<number>(0);
 const dimensions = ref({
   length: 10,
@@ -17,7 +17,7 @@ const dimensions = ref({
 
 const carriers = ["FedEx", "UPS", "La Poste", "Colissimo"];
 const countries = ["France", "USA", "Canada", "Belgium", "UK"];
-const offers = ["Express", "Economique"];
+const offers = [null, "Express", "Economique"];
 
 const submitForm = () => {
   emit("submit", {
@@ -26,6 +26,7 @@ const submitForm = () => {
     width: dimensions.value.width,
     height: dimensions.value.height,
     country: country.value,
+    type: offer.value,
   });
 };
 </script>
@@ -69,7 +70,7 @@ const submitForm = () => {
 
         <v-select
           :items="offers"
-          aria-placeholder="Offres d'envoi"
+          label="Offres d'envoi"
           v-model="offer"
           variant="outlined"
         ></v-select>
